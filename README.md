@@ -1,6 +1,6 @@
 # 🚀 Eat Token Generator
 
-A simple web-based tool created by **Killer Sharma (Aditya)** to help developers extract **EAT Tokens** and generate **Garena Free Fire access tokens** from authentication callback URLs.
+A simple web-based tool to help developers extract **EAT Tokens** and generate **Garena Free Fire access tokens** from authentication callback URLs.
 
 ⚠️ This project is made for educational and research purposes only to demonstrate how authentication flows work.
 
@@ -135,12 +135,12 @@ The developer is not responsible for misuse.
 
 ## 🔗 Connect With Me
 
-Developer: Killer Sharma (Aditya)
+Developer: zevric
 
-Telegram: https://t.me/KillerSharmaBot  
-YouTube: https://youtube.com/@KillerSharmaBot  
-Instagram: https://instagram.com/KillerSharmaBot  
-GitHub: https://github.com/KillerSharmaBot
+Telegram: https://t.me/just_zevric  
+YouTube: https://youtube.com/@zevricxplay  
+Instagram: https://instagram.com/zevricxplay  
+GitHub: https://github.com/catzevricxplay
 
 ---
 
@@ -152,4 +152,4 @@ GitHub: https://github.com/KillerSharmaBot
 
 ---
 
-⭐ Made with ❤️ by Killer Sharma (Aditya)
+⭐ Made with ❤️
