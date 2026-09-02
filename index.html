@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Fire Eat Token Access Generator | zevric</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-200 min-h-screen flex items-center justify-center p-6">
+  <main class="w-full max-w-3xl">
+    <h1 class="text-3xl font-bold mb-4 text-center">Free Fire EAT Token Generator</h1>
+    <p class="text-sm text-center mb-6">Paste your Garena callback URL below and click Generate to extract the EAT token and build an access-token response. Use responsibly (educational purposes only).</p>
+
+    <div class="bg-slate-800 p-6 rounded-lg shadow">
+      <label class="block text-sm mb-2">Callback URL</label>
+      <textarea id="inputUrl" rows="3" class="w-full p-3 bg-slate-900 border border-slate-700 rounded text-slate-200" placeholder="https://api-ticket.ff.gameid.garena.co.id/oauth/callback/?eat=...&lang=en&region=...&account_id=...&nickname=..."></textarea>
+
+      <div class="mt-4 flex gap-3">
+        <button id="generateBtn" class="px-4 py-2 bg-fuchsia-600 hover:bg-fuchsia-500 rounded">Generate Access</button>
+        <button id="copyBtn" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded">Copy Full Response</button>
+        <button id="clearBtn" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded">Clear</button>
+      </div>
+
+      <div id="result" class="mt-4 hidden bg-black/30 p-4 rounded text-sm overflow-auto">
+        <pre id="outputPre" class="whitespace-pre-wrap"></pre>
+      </div>
+    </div>
+
+    <footer class="mt-6 text-center text-xs text-slate-400">
+      <p>Developer: zevric</p>
+      <p class="mt-2">Follow: <a class="text-fuchsia-400" href="https://t.me/just_zevric" target="_blank">Telegram</a> • <a class="text-fuchsia-400" href="https://youtube.com/@zevricxplay" target="_blank">YouTube</a> • <a class="text-fuchsia-400" href="https://instagram.com/zevricxplay" target="_blank">Instagram</a> • <a class="text-fuchsia-400" href="https://github.com/catzevricxplay" target="_blank">GitHub</a></p>
+      <p class="mt-2 text-xxs text-slate-500">This tool is for educational purposes only. Do not misuse tokens or violate platform terms.</p>
+    </footer>
+  </main>
+
+<script>
+function parseQuery(url) {
+  try {
+    const u = new URL(url);
+    const params = {};
+    for (const [k,v] of u.searchParams) params[k]=v;
+    return { pathname: u.pathname, params };
+  } catch(e) {
+    return null;
+  }
+}
+
+function buildAccessResponse(params) {
+  const eat = params['eat'] || params['EAT'] || '';
+  const account_id = params['account_id'] || '';
+  const region = params['region'] || '';
+  const nickname = params['nickname'] || '';
+
+  const response = {
+    "access_token": eat,
+    "token_type": "Bearer",
+    "expires_in": 2591999,
+    "scope": "ff_oauth",
+    "account_id": account_id,
+    "region": region,
+    "nickname": nickname
+  };
+  return response;
+}
+
+document.getElementById('generateBtn').addEventListener('click', ()=>{
+  const input = document.getElementById('inputUrl').value.trim();
+  if (!input) return alert('Please paste the callback URL.');
+  const parsed = parseQuery(input);
+  if (!parsed) return alert('Invalid URL. Make sure you pasted the full callback URL.');
+  const resp = buildAccessResponse(parsed.params);
+  const out = JSON.stringify(resp, null, 2);
+  document.getElementById('outputPre').textContent = out;
+  document.getElementById('result').classList.remove('hidden');
+});
+
+document.getElementById('copyBtn').addEventListener('click', async ()=>{
+  const text = document.getElementById('outputPre').textContent;
+  if (!text) return alert('Nothing to copy — generate first.');
+  try {
+    await navigator.clipboard.writeText(text);
+    alert('Copied to clipboard');
+  } catch(e) {
+    alert('Copy failed — select and copy manually.');
+  }
+});
+
+document.getElementById('clearBtn').addEventListener('click', ()=>{
+  document.getElementById('inputUrl').value = '';
+  document.getElementById('outputPre').textContent = '';
+  document.getElementById('result').classList.add('hidden');
+});
+</script>
+</body>
+</html>
